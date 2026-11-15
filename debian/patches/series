@@ -7,4 +7,4 @@ kopper-Revert-kopper-Explicitly-choose-zink.patch
 pan-genxml-Add-missing-parenthesis-on-pan_cast_and_p.patch
 0008-Add-experimental-KGSL-support.patch
 0009-Fix-build-errors.patch
-0009-zink-null-check-semaphore-fd.patch
+0010-zink-null-check-semaphore-fd.patch
