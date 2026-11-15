@@ -2356,12 +2356,6 @@ zink_screen_export_dmabuf_semaphore(struct zink_screen *screen, struct zink_reso
 {
    VkSemaphore sem = VK_NULL_HANDLE;
 #if defined(HAVE_LIBDRM) && (DETECT_OS_LINUX || DETECT_OS_BSD)
-   /* VK_KHR_external_semaphore_fd is optional; Turnip (kgsl) does not
-    * advertise it, leaving the dispatch pointer NULL. Calling it would
-    * jump to address 0. */
-   if (!VKSCR(ImportSemaphoreFdKHR))
-      return VK_NULL_HANDLE;
-
    struct dma_buf_export_sync_file export = {
       .flags = DMA_BUF_SYNC_RW,
       .fd = -1,
@@ -2417,10 +2411,6 @@ bool
 zink_screen_import_dmabuf_semaphore(struct zink_screen *screen, struct zink_resource *res, VkSemaphore sem)
 {
 #if defined(HAVE_LIBDRM) && (DETECT_OS_LINUX || DETECT_OS_BSD)
-   /* See zink_screen_export_dmabuf_semaphore(). */
-   if (!VKSCR(GetSemaphoreFdKHR))
-      return sem;
-
    const VkSemaphoreGetFdInfoKHR get_fd_info = {
       .sType = VK_STRUCTURE_TYPE_SEMAPHORE_GET_FD_INFO_KHR,
       .semaphore = sem,
